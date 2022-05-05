@@ -10,7 +10,7 @@
     "jsnext:main": "es/index.js",
     "types": "es/types.d.ts",
     "publishConfig": {
-        "registry": "https://registry.npmjs.org/"
+        "registry": "https://pkgs.dev.azure.com/FinitiveLLC/Finitive/_packaging/npmjs/npm/registry/"
     },
     "keywords": [
         "box",
@@ -87,7 +87,8 @@
         "test:e2e:open": "BROWSERSLIST_ENV=test npm-run-all -p -r start:examples cy:open",
         "test:images": "yarn test -c scripts/jest/jest.config.js --maxWorkers=4",
         "test:visuals": "start-server-and-test start:storybook:ci http-get://localhost:6061 test:images",
-        "ts:defs": "tsc --declaration --emitDeclarationOnly --declarationDir es --noEmit false"
+        "ts:defs": "tsc --declaration --emitDeclarationOnly --declarationDir es --noEmit false",
+        "refreshVSToken": "vsts-npm-auth -config .npmrc"
     },
     "browserslist": {
         "production": [
