@@ -4,9 +4,9 @@
  * @author Finitive
  */
 
-import Base from 'api/Base';
-import type { BoxItem } from 'common/types/core';
-import { getTypedFileId, getTypedFolderId } from 'utils/file';
+import Base from './Base';
+import type { BoxItem } from '../common/types/core';
+import { getTypedFileId, getTypedFolderId } from '../utils/file';
 
 type ZipDownloadStatus = {
     downloaded_file_count: number,
