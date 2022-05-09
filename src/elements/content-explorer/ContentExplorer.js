@@ -1037,8 +1037,19 @@ class ContentExplorer extends Component<Props, State> {
         };
 
         const { type }: BoxItem = selected;
+
         if (type === TYPE_FILE) {
-            this.api.getFileAPI().getDownloadUrl(id, selected, openUrl, noop);
+            this.api
+                .getFileAPI()
+                .getDownloadUrl(id, selected, openUrl, noop)
+                .then(noop);
+        }
+
+        if (type === TYPE_FOLDER) {
+            this.api
+                .getZipDownloadAPI()
+                .createZipDownload(selected)
+                .then(zipInfo => openUrl(zipInfo.download_url));
         }
     };
 

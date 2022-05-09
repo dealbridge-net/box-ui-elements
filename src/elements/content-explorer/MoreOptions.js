@@ -17,6 +17,7 @@ import {
     PERMISSION_CAN_PREVIEW,
     TYPE_FILE,
     TYPE_WEBLINK,
+    TYPE_FOLDER,
 } from '../../constants';
 
 import type { CommonGridViewFunctions } from './flowTypes';
@@ -68,7 +69,10 @@ const MoreOptions = ({
     const allowShare = canShare && permissions[PERMISSION_CAN_SHARE];
     const allowRename = canRename && permissions[PERMISSION_CAN_RENAME];
     const allowDownload =
-        canDownload && permissions[PERMISSION_CAN_DOWNLOAD] && type === TYPE_FILE && !Browser.isMobile();
+        canDownload &&
+        permissions[PERMISSION_CAN_DOWNLOAD] &&
+        [TYPE_FILE, TYPE_FOLDER].includes(type) &&
+        !Browser.isMobile();
     const allowed = allowDelete || allowRename || allowDownload || allowPreview || allowShare || allowOpen;
 
     if (!allowed) {

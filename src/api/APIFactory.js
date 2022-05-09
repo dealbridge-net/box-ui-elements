@@ -33,6 +33,7 @@ import AnnotationsAPI from './Annotations';
 import OpenWithAPI from './OpenWith';
 import MetadataQueryAPI from './MetadataQuery';
 import BoxEditAPI from './box-edit';
+import ZipDownloadAPI from './ZipDownloadAPI';
 import { DEFAULT_HOSTNAME_API, DEFAULT_HOSTNAME_UPLOAD, TYPE_FOLDER, TYPE_FILE, TYPE_WEBLINK } from '../constants';
 import type { ItemType } from '../common/types/core';
 import type { APIOptions } from '../common/types/api';
@@ -185,6 +186,11 @@ class APIFactory {
      * @property {AnnotationsAPI}
      */
     annotationsAPI: AnnotationsAPI;
+
+    /**
+     * @property {ZipDownloadAPI}
+     */
+    zipDownloadAPI: ZipDownloadAPI;
 
     /**
      * [constructor]
@@ -347,6 +353,11 @@ class APIFactory {
 
         if (destroyCache) {
             this.options.cache = new Cache();
+        }
+
+        if (destroyCache) {
+            this.zipDownloadAPI.destroy();
+            delete this.zipDownloadAPI;
         }
     }
 
@@ -777,6 +788,20 @@ class APIFactory {
 
         this.annotationsAPI = new AnnotationsAPI(this.options);
         return this.annotationsAPI;
+    }
+
+    /**
+     * API for Annotations
+     *
+     * @return {AnnotationsAPI} AnnotationsAPI instance
+     */
+    getZipDownloadAPI(shouldDestroy: boolean = true): ZipDownloadAPI {
+        if (shouldDestroy) {
+            this.destroy();
+        }
+
+        this.zipDownloadAPI = new ZipDownloadAPI(this.options);
+        return this.zipDownloadAPI;
     }
 }
 
