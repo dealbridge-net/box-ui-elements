@@ -355,7 +355,7 @@ class APIFactory {
             this.options.cache = new Cache();
         }
 
-        if (destroyCache) {
+        if (this.zipDownloadAPI) {
             this.zipDownloadAPI.destroy();
             delete this.zipDownloadAPI;
         }
