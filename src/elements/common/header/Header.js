@@ -30,7 +30,6 @@ const Header = ({ isHeaderLogoVisible = true, view, isSmall, searchQuery, onSear
     const isSearch = view === VIEW_SEARCH;
     return (
         <div className="be-header">
-            Hi Proto
             {isHeaderLogoVisible && <Logo isSmall={isSmall} url={logoUrl} />}
             <div className="be-search">
                 <input
