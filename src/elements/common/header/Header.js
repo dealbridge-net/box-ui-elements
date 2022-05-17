@@ -16,6 +16,7 @@ import Button from '../../../components/button';
 
 type Props = {
     intl: any,
+    isDownloadAllVisible: boolean,
     isHeaderLogoVisible?: boolean,
     isSmall: boolean,
     logoUrl?: string,
@@ -34,6 +35,7 @@ const Header = ({
     onSearch,
     logoUrl,
     intl,
+    isDownloadAllVisible,
     onDownloadAll,
 }: Props) => {
     const search = ({ currentTarget }: { currentTarget: HTMLInputElement }) => onSearch(currentTarget.value);
@@ -52,9 +54,11 @@ const Header = ({
                     value={searchQuery}
                 />
             </div>
-            <Button onClick={onDownloadAll} type="button" className="outlined-button">
-                <FormattedMessage {...messages.downloadAll} />
-            </Button>
+            {isDownloadAllVisible && (
+                <Button onClick={onDownloadAll} type="button" className="outlined-button">
+                    <FormattedMessage {...messages.downloadAll} />
+                </Button>
+            )}
         </div>
     );
 };

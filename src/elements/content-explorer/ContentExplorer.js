@@ -1663,6 +1663,7 @@ class ContentExplorer extends Component<Props, State> {
         const allowCreate: boolean = canCreateNewFolder && !!can_upload;
         const isDefaultViewMetadata: boolean = defaultView === DEFAULT_VIEW_METADATA;
         const isErrorView: boolean = view === VIEW_ERROR;
+        const isDownloadAllVisible: boolean = canDownload && defaultView !== 'recents';
 
         const viewMode = this.getViewMode();
         const maxGridColumnCount = this.getMaxNumberOfGridViewColumnsForWidth();
@@ -1683,6 +1684,7 @@ class ContentExplorer extends Component<Props, State> {
                                     isSmall={isSmall}
                                     searchQuery={searchQuery}
                                     logoUrl={logoUrl}
+                                    isDownloadAllVisible={isDownloadAllVisible}
                                     onDownloadAll={this.onDownloadAll}
                                     onSearch={this.search}
                                 />
