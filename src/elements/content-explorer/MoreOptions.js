@@ -49,6 +49,7 @@ const MoreOptions = ({
     onItemPreview,
     isSmall,
     item,
+    onItemWatermarkUpdate,
 }: Props) => {
     const onFocus = () => onItemSelect(item);
     const onDelete = () => onItemDelete(item);
@@ -56,6 +57,7 @@ const MoreOptions = ({
     const onRename = () => onItemRename(item);
     const onShare = () => onItemShare(item);
     const onPreview = () => onItemPreview(item);
+    const onWatermarkUpdate = () => onItemWatermarkUpdate(item);
 
     const { permissions, type } = item;
 
@@ -118,6 +120,20 @@ const MoreOptions = ({
                     {allowShare && (
                         <MenuItem onClick={onShare}>
                             <FormattedMessage {...messages.share} />
+                        </MenuItem>
+                    )}
+                    {/* For now, watermark only show when user have delete access */}
+                    {allowDelete && (
+                        <MenuItem onClick={onWatermarkUpdate}>
+                            <FormattedMessage
+                                {...{
+                                    id: 'be.watermark',
+                                    label: 'Label for watermark',
+                                    defaultMessage: item?.watermark_info?.is_watermarked
+                                        ? 'Remove Watermark'
+                                        : 'Add Watermark',
+                                }}
+                            />
                         </MenuItem>
                     )}
                 </Menu>

@@ -42,6 +42,7 @@ type Props = {
     onItemRename: Function,
     onItemSelect: Function,
     onItemShare: Function,
+    onItemWatermarkUpdate: Function,
     onSortChange: Function,
     rootElement: HTMLElement,
     rootId: string,
@@ -68,6 +69,7 @@ const ItemList = ({
     onItemRename,
     onItemShare,
     onItemPreview,
+    onItemWatermarkUpdate,
     onSortChange,
     currentCollection,
     tableRef,
@@ -98,6 +100,7 @@ const ItemList = ({
         onItemRename,
         onItemShare,
         onItemPreview,
+        onItemWatermarkUpdate,
         isSmall,
     );
     const isRecents: boolean = view === VIEW_RECENTS;

@@ -1104,6 +1104,66 @@ class ContentExplorer extends Component<Props, State> {
     };
 
     /**
+     * Selects the clicked file and then deletes it
+     *
+     * @private
+     * @param {Object} item - file or folder object
+     * @return {void}
+     */
+    handleWatermark = (item: BoxItem): void => {
+        this.select(item, this.handleWatermarkCallback);
+    };
+
+    /**
+     * Deletes a file
+     *
+     * @private
+     * @return {void}
+     */
+    handleWatermarkCallback = (): void => {
+        const { selected }: State = this.state;
+        // Only if canDelete is true the watermarks allowed
+        const { canDelete }: Props = this.props;
+        if (!selected || !canDelete) {
+            return;
+        }
+
+        const { id, permissions, parent, type }: BoxItem = selected;
+        if (!id || !permissions || !parent || !type) {
+            return;
+        }
+
+        const { id: parentId } = parent;
+        const { can_delete }: BoxItemPermission = permissions;
+        if (!can_delete || !parentId) {
+            return;
+        }
+
+        const onFinish = (isWatermarked: boolean) => () => {
+            this.refreshCollection();
+            this.select({
+                ...selected,
+                watermark_info: {
+                    is_watermarked: isWatermarked,
+                },
+            });
+        };
+
+        this.setState({ isLoading: true });
+        if (selected.watermark_info?.is_watermarked) {
+            this.api
+                .getWatermarkAPI()
+                .deleteWatermark(selected)
+                .then(onFinish(false));
+        } else {
+            this.api
+                .getWatermarkAPI()
+                .applyWatermark(selected)
+                .then(onFinish(true));
+        }
+    };
+
+    /**
      * Selects the clicked file and then renames it
      *
      * @private
@@ -1722,6 +1782,7 @@ class ContentExplorer extends Component<Props, State> {
                             isSmall={isSmall}
                             isTouch={isTouch}
                             fieldsToShow={fieldsToShow}
+                            onItemWatermarkUpdate={this.handleWatermark}
                             onItemClick={this.onItemClick}
                             onItemDelete={this.delete}
                             onItemDownload={this.download}

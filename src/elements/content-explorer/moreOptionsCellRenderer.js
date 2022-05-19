@@ -20,6 +20,7 @@ export default (
     onItemRename: Function,
     onItemShare: Function,
     onItemPreview: Function,
+    onItemWatermarkUpdate: Function,
     isSmall: boolean,
 ) => ({ rowData }: { rowData: BoxItem }) => (
     <MoreOptions
@@ -34,6 +35,7 @@ export default (
         onItemRename={onItemRename}
         onItemShare={onItemShare}
         onItemPreview={onItemPreview}
+        onItemWatermarkUpdate={onItemWatermarkUpdate}
         isSmall={isSmall}
         item={rowData}
     />
