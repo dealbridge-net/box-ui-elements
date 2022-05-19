@@ -34,6 +34,7 @@ import OpenWithAPI from './OpenWith';
 import MetadataQueryAPI from './MetadataQuery';
 import BoxEditAPI from './box-edit';
 import ZipDownloadAPI from './ZipDownloadAPI';
+import WatermarkAPI from './Watermarks.js';
 import { DEFAULT_HOSTNAME_API, DEFAULT_HOSTNAME_UPLOAD, TYPE_FOLDER, TYPE_FILE, TYPE_WEBLINK } from '../constants';
 import type { ItemType } from '../common/types/core';
 import type { APIOptions } from '../common/types/api';
@@ -191,6 +192,11 @@ class APIFactory {
      * @property {ZipDownloadAPI}
      */
     zipDownloadAPI: ZipDownloadAPI;
+
+    /**
+     * @property {WatermarkAPI}
+     */
+    watermarkAPI: WatermarkAPI;
 
     /**
      * [constructor]
@@ -358,6 +364,11 @@ class APIFactory {
         if (this.zipDownloadAPI) {
             this.zipDownloadAPI.destroy();
             delete this.zipDownloadAPI;
+        }
+
+        if (this.watermarkAPI) {
+            this.watermarkAPI.destroy();
+            delete this.watermarkAPI;
         }
     }
 
@@ -802,6 +813,20 @@ class APIFactory {
 
         this.zipDownloadAPI = new ZipDownloadAPI(this.options);
         return this.zipDownloadAPI;
+    }
+
+    /**
+     * API for Annotations
+     *
+     * @return {AnnotationsAPI} AnnotationsAPI instance
+     */
+    getWatermarkAPI(shouldDestroy: boolean = true): WatermarkAPI {
+        if (shouldDestroy) {
+            this.destroy();
+        }
+
+        this.watermarkAPI = new WatermarkAPI(this.options);
+        return this.watermarkAPI;
     }
 }
 
