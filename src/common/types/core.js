@@ -330,6 +330,9 @@ type BoxItem = {
     url?: string,
     version_limit?: ?number,
     version_number?: string,
+    watermark_info?: {
+        is_watermarked: boolean,
+    },
 };
 
 type BoxItemCollection = {
