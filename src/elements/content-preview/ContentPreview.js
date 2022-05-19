@@ -710,7 +710,9 @@ class ContentPreview extends React.PureComponent<Props, State> {
         const { file }: State = this.state;
         const isFileDownloadable =
             getProp(file, 'permissions.can_download', false) && getProp(file, 'is_download_available', false);
-        return isFileDownloadable && !!canDownload;
+        const isWatermarkedFile = file?.watermark_info?.is_watermarked ?? false;
+
+        return (isFileDownloadable || isWatermarkedFile) && !!canDownload;
     }
 
     /**
@@ -1047,12 +1049,48 @@ class ContentPreview extends React.PureComponent<Props, State> {
      * @public
      * @return {void}
      */
-    download = () => {
+    download = async () => {
         const { onDownload }: Props = this.props;
         const { file }: State = this.state;
         if (this.preview) {
-            this.preview.download();
-            onDownload(cloneDeep(file));
+            const entries = this.preview?.file?.representations?.entries ?? [];
+            const isWaterMarked = this.preview?.file?.watermark_info?.is_watermarked ?? false;
+
+            const entriesLength = entries.length;
+            const urlTemplate: string = entries.length ? entries[entriesLength - 1]?.content?.url_template : '' ?? '';
+            const accessToken = this.preview?.options?.token;
+
+            // Can download is false with watermarke means viewer possibility
+            const isViewer = !(file?.permissions?.can_download ?? false) && isWaterMarked;
+
+            if (isViewer && urlTemplate && accessToken) {
+                const downloadUrl = `${urlTemplate.replace(
+                    '{+asset_path}',
+                    `${entriesLength - 1}.${entries[entriesLength - 1].representation}`,
+                )}&access_token=${accessToken}`;
+
+                const downloadImage = async imageSrc => {
+                    const image = await fetch(imageSrc);
+                    const imageBlog = await image.blob();
+                    const imageURL = URL.createObjectURL(imageBlog);
+
+                    const link = document.createElement('a');
+                    link.href = imageURL;
+                    link.download = this.preview?.file?.name;
+                    if (document.body) {
+                        document.body.appendChild(link);
+                        link.click();
+                    }
+                    if (document.body) {
+                        document.body.removeChild(link);
+                    }
+                };
+
+                await downloadImage(downloadUrl);
+            } else {
+                this.preview.download();
+                onDownload(cloneDeep(file));
+            }
         }
     };
 
