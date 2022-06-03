@@ -8,8 +8,10 @@ import type { ItemGridProps } from './flowTypes';
 import type { BoxItem, Collection } from '../../common/types/core';
 
 type Props = {
+    canWatermark: boolean,
     currentCollection: Collection,
     gridColumnCount: number,
+    watermarkFileTypeSupports: string[],
     ...$Exact<ItemGridProps>,
 };
 

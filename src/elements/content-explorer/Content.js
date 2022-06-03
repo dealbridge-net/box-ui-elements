@@ -35,6 +35,7 @@ type Props = {
     canPreview: boolean,
     canRename: boolean,
     canShare: boolean,
+    canWatermark: boolean,
     currentCollection: Collection,
     fieldsToShow?: FieldsToShow,
     focusedRow: number,
@@ -57,6 +58,7 @@ type Props = {
     tableRef: Function,
     view: View,
     viewMode?: ViewMode,
+    watermarkFileTypeSupports: string[],
 };
 
 const Content = ({

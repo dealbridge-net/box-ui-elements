@@ -8,7 +8,9 @@ import './ItemGridCell.scss';
 import type { BoxItem } from '../../common/types/core';
 
 type Props = {
+    canWatermark: boolean,
     item: BoxItem,
+    watermarkFileTypeSupports: string[],
     ...$Exact<ItemGridProps>,
 };
 

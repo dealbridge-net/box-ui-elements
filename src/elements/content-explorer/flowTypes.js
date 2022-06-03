@@ -16,6 +16,7 @@ export type ItemGridProps = {
     canPreview: boolean,
     canRename: boolean,
     canShare: boolean,
+    canWatermark: boolean,
     isSmall: boolean,
     isTouch: boolean,
     onItemClick: (item: BoxItem | string) => void,

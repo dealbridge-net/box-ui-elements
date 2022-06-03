@@ -14,6 +14,8 @@ export default (
     canDownload: boolean,
     canDelete: boolean,
     canRename: boolean,
+    canWatermark: boolean,
+    watermarkFileTypeSupports: string[],
     onItemSelect: Function,
     onItemDelete: Function,
     onItemDownload: Function,
@@ -24,6 +26,8 @@ export default (
     isSmall: boolean,
 ) => ({ rowData }: { rowData: BoxItem }) => (
     <MoreOptions
+        canWatermark={canWatermark}
+        watermarkFileTypeSupports={watermarkFileTypeSupports}
         canPreview={canPreview}
         canShare={canShare}
         canDownload={canDownload}

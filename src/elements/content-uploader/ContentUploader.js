@@ -63,6 +63,7 @@ import '../common/base.scss';
 
 type Props = {
     apiHost: string,
+    canWatermark: boolean,
     chunked: boolean,
     className: string,
     clientName: string,
@@ -100,6 +101,7 @@ type Props = {
     token?: Token,
     uploadHost: string,
     useUploadsManager?: boolean,
+    watermarkFileTypeSupports: string[],
 };
 
 type State = {

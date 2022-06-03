@@ -1054,6 +1054,7 @@ class ContentPreview extends React.PureComponent<Props, State> {
         const { file }: State = this.state;
         if (this.preview) {
             const entries = this.preview?.file?.representations?.entries ?? [];
+            console.log('entries:', entries);
             const isWaterMarked = this.preview?.file?.watermark_info?.is_watermarked ?? false;
 
             const entriesLength = entries.length;

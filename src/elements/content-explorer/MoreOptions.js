@@ -30,8 +30,10 @@ type Props = {
     canPreview: boolean,
     canRename: boolean,
     canShare: boolean,
+    canWatermark: boolean,
     isSmall: boolean,
     item: BoxItem,
+    watermarkFileTypeSupports: string[],
     ...$Exact<CommonGridViewFunctions>,
 };
 
@@ -41,6 +43,7 @@ const MoreOptions = ({
     canDownload,
     canDelete,
     canRename,
+    canWatermark,
     onItemSelect,
     onItemDelete,
     onItemDownload,
@@ -50,6 +53,7 @@ const MoreOptions = ({
     isSmall,
     item,
     onItemWatermarkUpdate,
+    watermarkFileTypeSupports,
 }: Props) => {
     const onFocus = () => onItemSelect(item);
     const onDelete = () => onItemDelete(item);
@@ -59,7 +63,7 @@ const MoreOptions = ({
     const onPreview = () => onItemPreview(item);
     const onWatermarkUpdate = () => onItemWatermarkUpdate(item);
 
-    const { permissions, type } = item;
+    const { permissions, type, extension = '' } = item;
 
     if (!permissions) {
         return <span />;
@@ -67,6 +71,11 @@ const MoreOptions = ({
 
     const allowPreview = type === TYPE_FILE && canPreview && permissions[PERMISSION_CAN_PREVIEW];
     const allowOpen = type === TYPE_WEBLINK;
+
+    /* For now, watermark only show when user have delete access and some file types */
+    const allowWatermark =
+        canWatermark && permissions[PERMISSION_CAN_DELETE] && watermarkFileTypeSupports.includes(extension);
+
     const allowDelete = canDelete && permissions[PERMISSION_CAN_DELETE];
     const allowShare = canShare && permissions[PERMISSION_CAN_SHARE];
     const allowRename = canRename && permissions[PERMISSION_CAN_RENAME];
@@ -122,8 +131,8 @@ const MoreOptions = ({
                             <FormattedMessage {...messages.share} />
                         </MenuItem>
                     )}
-                    {/* For now, watermark only show when user have delete access */}
-                    {allowDelete && (
+
+                    {allowWatermark && (
                         <MenuItem onClick={onWatermarkUpdate}>
                             <FormattedMessage
                                 {...{

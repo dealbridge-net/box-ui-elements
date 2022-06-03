@@ -113,6 +113,7 @@ type Props = {
     isSmall: boolean,
     isTouch: boolean,
     isVeryLarge: boolean,
+    isWatermarkActive?: boolean,
     language?: string,
     logoUrl?: string,
     measureRef?: Function,
@@ -141,6 +142,7 @@ type Props = {
     staticPath: string,
     token: Token,
     uploadHost: string,
+    watermarkFileTypeSupports: Array<string>,
 };
 
 type State = {
@@ -225,6 +227,8 @@ class ContentExplorer extends Component<Props, State> {
             contentSidebarProps: {},
         },
         contentUploaderProps: {},
+        isWatermarkActive: false,
+        watermarkFileTypeSupports: [],
     };
 
     /**
@@ -1693,6 +1697,8 @@ class ContentExplorer extends Component<Props, State> {
             previewLibraryVersion,
             token,
             uploadHost,
+            isWatermarkActive = false,
+            watermarkFileTypeSupports = [],
         }: Props = this.props;
 
         const {
@@ -1781,6 +1787,8 @@ class ContentExplorer extends Component<Props, State> {
                             isMedium={isMedium}
                             isSmall={isSmall}
                             isTouch={isTouch}
+                            canWatermark={isWatermarkActive}
+                            watermarkFileTypeSupports={watermarkFileTypeSupports}
                             fieldsToShow={fieldsToShow}
                             onItemWatermarkUpdate={this.handleWatermark}
                             onItemClick={this.onItemClick}

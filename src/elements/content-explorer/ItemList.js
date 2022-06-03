@@ -30,6 +30,7 @@ type Props = {
     canPreview: boolean,
     canRename: boolean,
     canShare: boolean,
+    canWatermark: boolean,
     currentCollection: Collection,
     focusedRow: number,
     isMedium: boolean,
@@ -48,6 +49,7 @@ type Props = {
     rootId: string,
     tableRef: Function,
     view: View,
+    watermarkFileTypeSupports: string[],
 } & InjectIntlProvidedProps;
 
 const ItemList = ({
@@ -70,6 +72,8 @@ const ItemList = ({
     onItemShare,
     onItemPreview,
     onItemWatermarkUpdate,
+    canWatermark,
+    watermarkFileTypeSupports,
     onSortChange,
     currentCollection,
     tableRef,
@@ -101,6 +105,8 @@ const ItemList = ({
         onItemShare,
         onItemPreview,
         onItemWatermarkUpdate,
+        canWatermark,
+        watermarkFileTypeSupports,
         isSmall,
     );
     const isRecents: boolean = view === VIEW_RECENTS;
