@@ -11,7 +11,10 @@ export const withCustomComponent = () => {
     // import { BrowserRouter as Router, Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 
     const CustomRouterLink = ({ href, children, ...rest }: RouterLinkProps) => (
-        <RouterLink to={href} {...rest}>
+        <RouterLink
+            // to={href}
+            {...rest}
+        >
             {children}
         </RouterLink>
     );

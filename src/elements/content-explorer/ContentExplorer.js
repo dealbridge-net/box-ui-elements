@@ -124,9 +124,12 @@ type Props = {
     onNavigate: Function,
     onPreview: Function,
     onRename: Function,
+    onRequestEnd?: Function,
+    onRequestStart?: Function,
     onSelect: Function,
     onUpload: Function,
     previewLibraryVersion: string,
+    registerRequestTypes?: ('DownloadAll' | '')[],
     requestInterceptor?: Function,
     responseInterceptor?: Function,
     rootFolderId: string,
@@ -1551,6 +1554,41 @@ class ContentExplorer extends Component<Props, State> {
         });
     };
 
+    onDownloadAll = () => {
+        const { canDownload, onDownload, onRequestStart, onRequestEnd, registerRequestTypes }: Props = this.props;
+
+        if (!canDownload) {
+            return;
+        }
+
+        const selected = { id: this.props.rootFolderId, type: 'folder', name: 'All files' };
+        const openUrl: Function = (url: string) => {
+            openUrlInsideIframe(url);
+            onDownload(cloneDeep([selected]));
+        };
+
+        const isNeedRequestStartEnd = registerRequestTypes ? registerRequestTypes.includes('DownloadAll') : false;
+
+        if (onRequestStart && isNeedRequestStartEnd) {
+            onRequestStart('We are preparing your files', selected);
+        }
+
+        this.api
+            .getZipDownloadAPI()
+            .createZipDownload(selected)
+            .then(zipInfo => {
+                openUrl(zipInfo.download_url);
+                if (onRequestEnd && isNeedRequestStartEnd) {
+                    onRequestEnd('success', 'Downloading zip files', { selected, info: zipInfo, err: null });
+                }
+            })
+            .catch(err => {
+                if (onRequestEnd && isNeedRequestStartEnd) {
+                    onRequestEnd('error', err.message, { selected, err, info: null });
+                }
+            });
+    };
+
     /**
      * Renders the file picker
      *
@@ -1625,6 +1663,7 @@ class ContentExplorer extends Component<Props, State> {
         const allowCreate: boolean = canCreateNewFolder && !!can_upload;
         const isDefaultViewMetadata: boolean = defaultView === DEFAULT_VIEW_METADATA;
         const isErrorView: boolean = view === VIEW_ERROR;
+        const isDownloadAllVisible: boolean = canDownload && defaultView !== 'recents';
 
         const viewMode = this.getViewMode();
         const maxGridColumnCount = this.getMaxNumberOfGridViewColumnsForWidth();
@@ -1645,6 +1684,8 @@ class ContentExplorer extends Component<Props, State> {
                                     isSmall={isSmall}
                                     searchQuery={searchQuery}
                                     logoUrl={logoUrl}
+                                    isDownloadAllVisible={isDownloadAllVisible}
+                                    onDownloadAll={this.onDownloadAll}
                                     onSearch={this.search}
                                 />
                                 <SubHeader

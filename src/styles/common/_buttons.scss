@@ -12,7 +12,7 @@
     font-weight: normal;
     font-size: 13px;
     line-height: 10px;
-    letter-spacing: .035em;
+    letter-spacing: 0.035em;
     white-space: nowrap;
     text-align: center;
     text-decoration: none;
@@ -24,8 +24,8 @@
     border-width: 1px;
     border-radius: 4px;
     cursor: pointer;
-    -webkit-transition: border-color linear .15s, box-shadow linear .15s, background-color linear .15s;
-    transition: background-color .05s ease-in-out, border-color .05s ease-in-out;
+    -webkit-transition: border-color linear 0.15s, box-shadow linear 0.15s, background-color linear 0.15s;
+    transition: background-color 0.05s ease-in-out, border-color 0.05s ease-in-out;
     -webkit-appearance: none;
     zoom: 1;
     -webkit-font-smoothing: antialiased;
@@ -50,7 +50,7 @@
 
         &:focus {
             border-color: $bdl-gray;
-            box-shadow: 0 1px 2px fade-out($black, .9);
+            box-shadow: 0 1px 2px fade-out($black, 0.9);
         }
     }
 
@@ -81,7 +81,33 @@
     &.bdl-is-disabled,
     &.is-disabled {
         box-shadow: none;
-        opacity: .4;
+        opacity: 0.4;
+    }
+    &.outlined-button {
+        color: #013c4d;
+        border: 1px solid rgba(0, 0, 0, 0.23);
+        padding: 5px 15px;
+        border-color: #013c4d;
+        background-color: white;
+
+        .btn-content {
+            color: #013c4d;
+        }
+    }
+
+    &.outlined-button:hover {
+        transition: all 0.2s ease-in-out;
+        color: white;
+        border: 1px solid rgba(0, 0, 0, 0.23);
+        padding: 5px 15px;
+        border-color: #013c4d;
+        background-color: #013c4d;
+
+        .btn-content {
+            color: #013c4d;
+            transition: all 0.2s ease-in-out;
+            color: white;
+        }
     }
 }
 
@@ -123,7 +149,7 @@ button svg {
         &:focus {
             background-color: lighten($primary-color, 8%);
             border: 1px solid $primary-color;
-            box-shadow: inset 0 0 0 1px fade-out($white, .2), 0 1px 2px fade-out($black, .9);
+            box-shadow: inset 0 0 0 1px fade-out($white, 0.2), 0 1px 2px fade-out($black, 0.9);
         }
 
         &:hover {

@@ -112,6 +112,11 @@ const messages = defineMessages({
         description: 'Label for download action.',
         defaultMessage: 'Download',
     },
+    downloadAll: {
+        id: 'be.downloadAll',
+        description: 'Label for download all action.',
+        defaultMessage: 'Download All',
+    },
     save: {
         id: 'be.save',
         description: 'Label for save action.',

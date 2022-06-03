@@ -84,3 +84,19 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+
+# Local Development
+
+We can use library locally by [yalc](https://github.com/wclr/yalc). It acts as very simple local repository for your locally developed packages that you want to share across your local environment.
+
+How to install?
+Just execute `npm install -g yalc`
+
+How to use it?:
+1. In the root of box ui elements project, do `yalc publish`
+2. In the other project (example: Finitive-platform), do `yalc add box-ui-elements`
+3. If we have update the box ui elements code, just `yalc push` to update the package
+4. If the changes doesnt update your project, we can do `yalc add box-ui-elements` again in the other project (example: Finitive-platform)
+
+related artciles: https://dev.to/zachsnoek/using-local-npm-packages-as-dependencies-with-yalc-2g56
