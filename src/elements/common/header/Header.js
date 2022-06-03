@@ -19,7 +19,7 @@ type Props = {
     isHeaderLogoVisible?: boolean,
     isSmall: boolean,
     logoUrl?: string,
-    onDownloadAll: Function,
+    onDownloadAll?: Function,
     onSearch: Function,
     searchQuery: string,
     view: View,
@@ -52,9 +52,11 @@ const Header = ({
                     value={searchQuery}
                 />
             </div>
-            <Button onClick={onDownloadAll} type="button" className="outlined-button">
-                <FormattedMessage {...messages.downloadAll} />
-            </Button>
+            {onDownloadAll && (
+                <Button onClick={onDownloadAll} type="button" className="outlined-button">
+                    <FormattedMessage {...messages.downloadAll} />
+                </Button>
+            )}
         </div>
     );
 };
