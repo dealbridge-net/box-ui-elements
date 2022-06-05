@@ -1053,31 +1053,61 @@ class ContentPreview extends React.PureComponent<Props, State> {
         const { onDownload }: Props = this.props;
         const { file }: State = this.state;
         if (this.preview) {
-            const entries = this.preview?.file?.representations?.entries ?? [];
-            console.log('entries:', entries);
+            const entries: Array<any> = this.preview?.file?.representations?.entries ?? [];
+            const entriesLength = entries.length;
+
             const isWaterMarked = this.preview?.file?.watermark_info?.is_watermarked ?? false;
 
-            const entriesLength = entries.length;
-            const urlTemplate: string = entries.length ? entries[entriesLength - 1]?.content?.url_template : '' ?? '';
+            let selectedEntry: {
+                index: number, // An index that will combined with representation
+                representation: string, // Representation is an extension file with index, ex: index.representation
+                url_template: string, // Url template contains a downloaded path with "asset_path" replacement that used for watermarking
+            } = {};
+
+            // When original file is document, the entries contains pdf, jpg, and png. we only download the pdf
+            const selectedPdfIndex = entries.findIndex(entry => entry.representation === 'pdf');
+            const isDocument = selectedPdfIndex !== -1;
+            if (isDocument) {
+                selectedEntry = {
+                    index: selectedPdfIndex,
+                    representation: entries[selectedPdfIndex]?.representation,
+                    url_template: entries[selectedPdfIndex]?.content?.url_template,
+                };
+            } else {
+                // Get the latest entries, it means getting the bigger size of image
+                const selectedImage = entries?.[entriesLength - 1] ?? {};
+                selectedEntry = {
+                    index: entriesLength - 1,
+                    representation: selectedImage?.representation,
+                    url_template: selectedImage?.content?.url_template,
+                };
+            }
+
             const accessToken = this.preview?.options?.token;
 
-            // Can download is false with watermarke means viewer possibility
+            // The watermark only downloaded when user role is only viewer,
+            // If user can't download the file, it means user role is viewer
             const isViewer = !(file?.permissions?.can_download ?? false) && isWaterMarked;
 
-            if (isViewer && urlTemplate && accessToken) {
-                const downloadUrl = `${urlTemplate.replace(
+            // Download an item with watermark
+            if (isViewer && typeof selectedEntry?.url_template !== 'undefined' && accessToken) {
+                const downloadUrl = `${selectedEntry.url_template.replace(
                     '{+asset_path}',
-                    `${entriesLength - 1}.${entries[entriesLength - 1].representation}`,
+                    isDocument ? '' : `${selectedEntry.index}.${selectedEntry.representation}`,
                 )}&access_token=${accessToken}`;
+                const downloadName = `${this.preview.file.name.split('.')[0]}.${selectedEntry.representation}`;
 
-                const downloadImage = async imageSrc => {
+                /**
+                 * A function that used for downloading an image by url
+                 */
+                const downloadItem = async imageSrc => {
                     const image = await fetch(imageSrc);
                     const imageBlog = await image.blob();
                     const imageURL = URL.createObjectURL(imageBlog);
 
                     const link = document.createElement('a');
                     link.href = imageURL;
-                    link.download = this.preview?.file?.name;
+                    link.download = downloadName;
                     if (document.body) {
                         document.body.appendChild(link);
                         link.click();
@@ -1087,8 +1117,9 @@ class ContentPreview extends React.PureComponent<Props, State> {
                     }
                 };
 
-                await downloadImage(downloadUrl);
+                await downloadItem(downloadUrl);
             } else {
+                // This is the default condition that Box SDK used, download an item without watermark
                 this.preview.download();
                 onDownload(cloneDeep(file));
             }
