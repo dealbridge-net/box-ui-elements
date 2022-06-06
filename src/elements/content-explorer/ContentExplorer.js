@@ -99,6 +99,7 @@ type Props = {
     canSetShareAccess: boolean,
     canShare: boolean,
     canUpload: boolean,
+    canWatermark?: boolean,
     className: string,
     contentPreviewProps: ContentPreviewProps,
     contentUploaderProps: ContentUploaderProps,
@@ -113,7 +114,6 @@ type Props = {
     isSmall: boolean,
     isTouch: boolean,
     isVeryLarge: boolean,
-    isWatermarkActive?: boolean,
     language?: string,
     logoUrl?: string,
     measureRef?: Function,
@@ -227,7 +227,7 @@ class ContentExplorer extends Component<Props, State> {
             contentSidebarProps: {},
         },
         contentUploaderProps: {},
-        isWatermarkActive: false,
+        canWatermark: false,
         watermarkFileTypeSupports: [],
     };
 
@@ -1697,9 +1697,11 @@ class ContentExplorer extends Component<Props, State> {
             previewLibraryVersion,
             token,
             uploadHost,
-            isWatermarkActive = false,
+            canWatermark = false,
             watermarkFileTypeSupports = [],
         }: Props = this.props;
+
+        console.log({ canWatermark });
 
         const {
             currentCollection,
@@ -1787,7 +1789,7 @@ class ContentExplorer extends Component<Props, State> {
                             isMedium={isMedium}
                             isSmall={isSmall}
                             isTouch={isTouch}
-                            canWatermark={isWatermarkActive}
+                            canWatermark={canWatermark}
                             watermarkFileTypeSupports={watermarkFileTypeSupports}
                             fieldsToShow={fieldsToShow}
                             onItemWatermarkUpdate={this.handleWatermark}
