@@ -1035,8 +1035,7 @@ class ContentExplorer extends Component<Props, State> {
         }
 
         const openUrl: Function = (url: string) => {
-            const new_url = url.replace('dl.boxcloud.com', 'dl.api.finitive.com');
-            openUrlInsideIframe(new_url);
+            openUrlInsideIframe(url);
             onDownload(cloneDeep([selected]));
         };
 
