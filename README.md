@@ -99,4 +99,4 @@ How to use it?:
 3. If we have update the box ui elements code, just `yalc push` to update the package
 4. If the changes doesnt update your project, we can do `yalc add box-ui-elements` again in the other project (example: Finitive-platform)
 
-related artciles: https://dev.to/zachsnoek/using-local-npm-packages-as-dependencies-with-yalc-2g56
+related artciles: https://dev.to/zachsnoek/using-local-npm-packages-as-dependencies-with-yalc-2g56 
