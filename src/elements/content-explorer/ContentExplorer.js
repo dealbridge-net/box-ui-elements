@@ -1011,7 +1011,7 @@ class ContentExplorer extends Component<Props, State> {
         this.select(item, this.downloadCallback);
     };
 
-    /**
+    /** f
      * Downloads a file
      *
      * @private
@@ -1563,7 +1563,8 @@ class ContentExplorer extends Component<Props, State> {
 
         const selected = { id: this.props.rootFolderId, type: 'folder', name: 'All files' };
         const openUrl: Function = (url: string) => {
-            openUrlInsideIframe(url);
+            const new_url = url.replace('dl.boxcloud.com', 'dl.api.finitive.com');
+            openUrlInsideIframe(new_url);
             onDownload(cloneDeep([selected]));
         };
 

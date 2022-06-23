@@ -6,6 +6,7 @@
 
 import queryString from 'query-string';
 import getProp from 'lodash/get';
+import setProp from 'lodash/set';
 import { findMissingProperties, fillMissingProperties } from '../utils/fields';
 import { getTypedFileId } from '../utils/file';
 import { getBadItemError, getBadPermissionsError } from '../utils/error';
@@ -81,8 +82,10 @@ class File extends Item {
         const { query, url: downloadBaseUrl } = queryString.parseUrl(downloadUrl);
         const downloadUrlParams = { ...query, access_token: token };
         const downloadUrlQuery = queryString.stringify(downloadUrlParams);
+        const regex = /dl\.boxcloud\.com/i;
+        const new_url = downloadBaseUrl.replace(regex, 'dl.api.finitive.com');
 
-        this.successHandler(`${downloadBaseUrl}?${downloadUrlQuery}`);
+        this.successHandler(`${new_url}?${downloadUrlQuery}`);
     }
 
     /**
@@ -152,7 +155,10 @@ class File extends Item {
         const { query, url: thumbnailBaseUrl } = queryString.parseUrl(thumbnailUrl);
         const thumbnailUrlParams = { ...query, access_token: token };
         const thumbnailUrlQuery = queryString.stringify(thumbnailUrlParams);
-        return `${thumbnailBaseUrl}?${thumbnailUrlQuery}`;
+        const regex = /dl\.boxcloud\.com/i;
+        const new_url = thumbnailBaseUrl.replace(regex, 'dl.api.finitive.com');
+
+        return `${new_url}?${thumbnailUrlQuery}`;
     }
 
     /**
