@@ -37,12 +37,8 @@ import API from '../../api';
 import PreviewHeader from './preview-header';
 import PreviewMask from './PreviewMask';
 import PreviewNavigation from './PreviewNavigation';
-import {
-    withAnnotations,
-    WithAnnotationsProps,
-    withAnnotatorContext,
-    WithAnnotatorContextProps,
-} from '../common/annotator-context';
+
+import { withAnnotations, withAnnotatorContext } from '../common/annotator-context';
 import {
     DEFAULT_HOSTNAME_API,
     DEFAULT_HOSTNAME_APP,
@@ -55,6 +51,7 @@ import {
     ORIGIN_CONTENT_PREVIEW,
     ERROR_CODE_UNKNOWN,
 } from '../../constants';
+import type { WithAnnotatorContextProps, WithAnnotationsProps } from '../common/annotator-context';
 import type { Annotation } from '../../common/types/feed';
 import type { TargetingApi } from '../../features/targeting/types';
 import type { ErrorType, AdditionalVersionInfo } from '../common/flowTypes';
