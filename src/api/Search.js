@@ -19,8 +19,17 @@ import {
     SORT_DESC,
     ERROR_CODE_SEARCH,
 } from '../constants';
+
 import type { RequestOptions, ElementsErrorCallback } from '../common/types/api';
-import type { FlattenedBoxItem, FlattenedBoxItemCollection, Collection, BoxItemCollection } from '../common/types/core';
+import type {
+    FlattenedBoxItem,
+    FlattenedBoxItemCollection,
+    Collection,
+    BoxItemCollection,
+    SortBy,
+    SortDirection,
+    ItemType,
+} from '../common/types/core';
 import type APICache from '../utils/Cache';
 
 class Search extends Base {
@@ -48,6 +57,21 @@ class Search extends Base {
      * @property {string}
      */
     query: string;
+
+    /**
+     * @property {string}
+     */
+    sortBy: SortBy;
+
+    /**
+     * @property {string}
+     */
+    sortDirection: SortDirection;
+
+    /**
+     * @property {string}
+     */
+    type: ItemType;
 
     /**
      * @property {Function}
@@ -205,6 +229,7 @@ class Search extends Base {
         const requestFields = fields || FOLDER_FIELDS_TO_FETCH;
 
         this.errorCode = ERROR_CODE_SEARCH;
+
         return this.xhr
             .get({
                 url: this.getUrl(),
@@ -214,6 +239,9 @@ class Search extends Base {
                     ancestor_folder_ids: this.id,
                     limit: this.limit,
                     fields: requestFields.toString(),
+                    sort: this.sortBy || undefined,
+                    sortDirection: this.sortDirection || undefined,
+                    type: this.type || undefined,
                 },
                 headers: requestFields.includes(FIELD_REPRESENTATIONS)
                     ? {
@@ -262,6 +290,18 @@ class Search extends Base {
         // Clear the cache if needed
         if (options.forceFetch) {
             this.getCache().unset(this.key);
+        }
+
+        if (options.sortBy) {
+            this.sortBy = options.sortBy;
+        }
+
+        if (options.sortDirection) {
+            this.sortDirection = options.sortDirection;
+        }
+
+        if (options.type) {
+            this.type = options.type;
         }
 
         // Return the Cache value if it exists

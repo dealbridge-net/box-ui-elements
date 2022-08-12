@@ -62,6 +62,8 @@ import {
     ERROR_CODE_ITEM_NAME_INVALID,
     ERROR_CODE_ITEM_NAME_TOO_LONG,
     TYPED_ID_FOLDER_PREFIX,
+    SORT_DESC,
+    FIELD_MODIFIED_AT,
 } from '../../constants';
 import type { ViewMode } from '../common/flowTypes';
 import type { MetadataQuery, FieldsToShow } from '../../common/types/metadataQueries';
@@ -83,6 +85,7 @@ import '../common/fonts.scss';
 import '../common/base.scss';
 import '../common/modal.scss';
 import './ContentExplorer.scss';
+import { ITEM_TYPE_FILE } from '../../common/constants';
 
 const GRID_VIEW_MAX_COLUMNS = 7;
 const GRID_VIEW_MIN_COLUMNS = 1;
@@ -736,14 +739,32 @@ class ContentExplorer extends Component<Props, State> {
             currentOffset: 0,
         });
 
-        // Fetch the folder using folder API
-        this.api.getRecentsAPI().recents(
+        this.api.getSearchAPI().search(
             rootFolderId,
+            'NOT %$!@%!@#!', // We can't use empty string to search all, so use "NOT" to act like search all
+            25,
+            0,
             (collection: Collection) => {
                 this.recentsSuccessCallback(collection, triggerNavigationEvent);
             },
-            this.errorCallback,
-            { fields: CONTENT_EXPLORER_FOLDER_FIELDS_TO_FETCH, forceFetch: true },
+            () => {
+                this.recentsSuccessCallback(
+                    {
+                        items: [],
+                        limit: 1,
+                        offset: 0,
+                        total_count: 0,
+                    },
+                    triggerNavigationEvent,
+                );
+            },
+            {
+                fields: CONTENT_EXPLORER_FOLDER_FIELDS_TO_FETCH,
+                forceFetch: true,
+                sortBy: FIELD_MODIFIED_AT,
+                sortDirection: SORT_DESC,
+                type: ITEM_TYPE_FILE,
+            },
         );
     }
 
