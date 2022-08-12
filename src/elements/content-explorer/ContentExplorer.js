@@ -586,7 +586,20 @@ class ContentExplorer extends Component<Props, State> {
             (collection: Collection) => {
                 this.fetchFolderSuccessCallback(collection, triggerNavigationEvent);
             },
-            this.errorCallback,
+            () => {
+                this.fetchFolderSuccessCallback(
+                    {
+                        totalCount: 0,
+                        items: [],
+                        id: rootFolderId,
+                        offset: 0,
+                        percentLoaded: 100,
+                        sortBy: '',
+                        sortDirection: 'DESC',
+                    },
+                    triggerNavigationEvent,
+                );
+            },
             { fields: CONTENT_EXPLORER_FOLDER_FIELDS_TO_FETCH, forceFetch: true },
         );
     };
@@ -647,12 +660,28 @@ class ContentExplorer extends Component<Props, State> {
     debouncedSearch = debounce((id: string, query: string) => {
         const { currentOffset, currentPageSize }: State = this.state;
 
-        this.api
-            .getSearchAPI()
-            .search(id, query, currentPageSize, currentOffset, this.searchSuccessCallback, this.errorCallback, {
+        this.api.getSearchAPI().search(
+            id,
+            query,
+            currentPageSize,
+            currentOffset,
+            this.searchSuccessCallback,
+            () => {
+                this.searchSuccessCallback({
+                    totalCount: 0,
+                    items: [],
+                    id,
+                    offset: 0,
+                    percentLoaded: 100,
+                    sortBy: '',
+                    sortDirection: 'DESC',
+                });
+            },
+            {
                 fields: CONTENT_EXPLORER_FOLDER_FIELDS_TO_FETCH,
                 forceFetch: true,
-            });
+            },
+        );
     }, DEFAULT_SEARCH_DEBOUNCE);
 
     /**
@@ -750,10 +779,13 @@ class ContentExplorer extends Component<Props, State> {
             () => {
                 this.recentsSuccessCallback(
                     {
+                        totalCount: 0,
                         items: [],
-                        limit: 1,
+                        id: rootFolderId,
                         offset: 0,
-                        total_count: 0,
+                        percentLoaded: 100,
+                        sortBy: '',
+                        sortDirection: 'DESC',
                     },
                     triggerNavigationEvent,
                 );
