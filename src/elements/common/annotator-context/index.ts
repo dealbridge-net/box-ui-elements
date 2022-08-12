@@ -1,15 +1,4 @@
-import AnnotatorContext from './AnnotatorContext';
-import withAnnotations  from './withAnnotations';
-import withAnnotatorContext from './withAnnotatorContext';
-
-import type { WithAnnotationsProps } from './withAnnotations'
-import type { WithAnnotatorContextProps } from './withAnnotatorContext';
+export { default as AnnotatorContext } from './AnnotatorContext';
+export { default as withAnnotations } from './withAnnotations';
+export { default as withAnnotatorContext } from './withAnnotatorContext';
 export * from './types';
-
-export type {
-    WithAnnotationsProps,
-    WithAnnotatorContextProps
-}
-
-export { AnnotatorContext, withAnnotations, withAnnotatorContext };
-
