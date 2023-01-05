@@ -15,7 +15,8 @@ import './AddButton.scss';
 const AddButton = (props: ?Object) => (
     <Tooltip text={<FormattedMessage {...messages.add} />}>
         <Button className="be-btn-add" aria-label={messages.add.defaultMessage} type="button" {...props}>
-            <IconAddThin />
+            <IconAddThin color="#FFFFFF"/>
+            Documents
         </Button>
     </Tooltip>
 );

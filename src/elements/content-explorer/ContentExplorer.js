@@ -16,11 +16,12 @@ import uniqueid from 'lodash/uniqueId';
 import CreateFolderDialog from '../common/create-folder-dialog';
 import UploadDialog from '../common/upload-dialog';
 import Header from '../common/header';
+import Disclaimer from '../common/discalimer';
 import Pagination from '../../features/pagination';
 import SubHeader from '../common/sub-header/SubHeader';
 import makeResponsive from '../common/makeResponsive';
 import openUrlInsideIframe from '../../utils/iframe';
-import Internationalize from '../common/Internationalize';
+import Internatcoionalize from '../common/Internationalize';
 import API from '../../api';
 import MetadataQueryAPIHelper from '../../features/metadata-based-view/MetadataQueryAPIHelper';
 import Footer from './Footer';
@@ -1733,14 +1734,20 @@ class ContentExplorer extends Component<Props, State> {
                     <div className="be-app-element" onKeyDown={this.onKeyDown} tabIndex={0}>
                         {!isDefaultViewMetadata && (
                             <>
+                                <Disclaimer />
                                 <Header
                                     view={view}
                                     isSmall={isSmall}
                                     searchQuery={searchQuery}
                                     logoUrl={logoUrl}
+                                    isHeaderLogoVisible={logoUrl}
                                     isDownloadAllVisible={isDownloadAllVisible}
                                     onDownloadAll={this.onDownloadAll}
                                     onSearch={this.search}
+                                    canUpload={allowUpload}
+                                    canCreateNewFolder={allowCreate}
+                                    onUpload={this.upload}
+                                    onCreate={this.createFolder}
                                 />
                                 <SubHeader
                                     view={view}

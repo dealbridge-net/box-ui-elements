@@ -25,12 +25,12 @@ const Add = ({ onUpload, onCreate, showUpload = true, showCreate = true }: Props
         <Menu>
             {showUpload && (
                 <MenuItem onClick={onUpload}>
-                    <FormattedMessage {...messages.upload} />
+                    <FormattedMessage {...messages.uploadFile} />
                 </MenuItem>
             )}
             {showCreate && (
                 <MenuItem onClick={onCreate}>
-                    <FormattedMessage {...messages.newFolder} />
+                    <FormattedMessage {...messages.creaetNewFolder} />
                 </MenuItem>
             )}
         </Menu>

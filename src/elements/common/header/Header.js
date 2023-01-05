@@ -13,21 +13,29 @@ import type { View } from '../../../common/types/core';
 
 import './Header.scss';
 import Button from '../../../components/button';
+import Add from '../sub-header/Add';
+import IconDownload from '../../../icons/general/IconDownload';
 
 type Props = {
+    canCreateNewFolder: boolean,
+    canUpload: boolean,
     intl: any,
     isDownloadAllVisible: boolean,
     isHeaderLogoVisible?: boolean,
     isSmall: boolean,
     logoUrl?: string,
+    onCreate: Function,
     onDownloadAll: Function,
     onSearch: Function,
+    onUpload: Function,
     searchQuery: string,
     view: View,
 };
 
 // eslint-disable-next-line react/prop-types
 const Header = ({
+    canUpload,
+    canCreateNewFolder,
     isHeaderLogoVisible = true,
     view,
     isSmall,
@@ -37,6 +45,8 @@ const Header = ({
     intl,
     isDownloadAllVisible,
     onDownloadAll,
+    onCreate,
+    onUpload,
 }: Props) => {
     const search = ({ currentTarget }: { currentTarget: HTMLInputElement }) => onSearch(currentTarget.value);
     const isFolder = view === VIEW_FOLDER;
@@ -44,6 +54,7 @@ const Header = ({
     const isRecent = view === VIEW_RECENTS;
 
     const shouldSearchDisabled = !(isFolder || isSearch || isRecent);
+    const showAdd: boolean = (!!canUpload || !!canCreateNewFolder) && isFolder;
 
     return (
         <div className="be-header">
@@ -53,15 +64,25 @@ const Header = ({
                     aria-label="search"
                     disabled={shouldSearchDisabled}
                     onChange={search}
-                    placeholder={intl.formatMessage(messages.searchPlaceholder)}
+                    placeholder={intl.formatMessage(messages.searchPlaceholderShort)}
                     type="search"
                     value={searchQuery}
                 />
             </div>
             {isDownloadAllVisible && (
-                <Button onClick={onDownloadAll} type="button" className="outlined-button">
+                <Button onClick={onDownloadAll} type="button" className="outlined-button download-all">
+                    <IconDownload color="#013c4d" />
                     <FormattedMessage {...messages.downloadAll} />
                 </Button>
+            )}
+            {showAdd && (
+                <Add
+                    isDisabled={!isFolder}
+                    onCreate={onCreate}
+                    onUpload={onUpload}
+                    showCreate={canCreateNewFolder}
+                    showUpload={canUpload}
+                />
             )}
         </div>
     );
