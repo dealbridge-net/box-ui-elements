@@ -15,6 +15,7 @@ import './Header.scss';
 import Button from '../../../components/button';
 import Add from '../sub-header/Add';
 import IconDownload from '../../../icons/general/IconDownload';
+import IconSearch from '../../../icons/general/IconSearch';
 
 type Props = {
     canCreateNewFolder: boolean,
@@ -60,6 +61,7 @@ const Header = ({
         <div className="be-header">
             {isHeaderLogoVisible && <Logo isSmall={isSmall} url={logoUrl} />}
             <div className="be-search">
+                <IconSearch />
                 <input
                     aria-label="search"
                     disabled={shouldSearchDisabled}

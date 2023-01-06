@@ -143,7 +143,7 @@ const messages = defineMessages({
         defaultMessage: 'Upload',
     },
     uploadFile: {
-        id: 'be.upload',
+        id: 'be.uploadFile',
         description: 'Label for upload action.',
         defaultMessage: 'Upload File',
     },
@@ -183,7 +183,7 @@ const messages = defineMessages({
         defaultMessage: 'New Folder',
     },
     creaetNewFolder: {
-        id: 'be.newFolder',
+        id: 'be.creaetNewFolder',
         description: 'Label for create new folder action.',
         defaultMessage: 'Create New Folder',
     },
@@ -373,7 +373,7 @@ const messages = defineMessages({
         defaultMessage: 'Search files and folders',
     },
     searchPlaceholderShort: {
-        id: 'be.searchPlaceholder',
+        id: 'be.searchPlaceholderShort',
         description: 'Shown as a placeholder in the search box.',
         defaultMessage: 'Search',
     },

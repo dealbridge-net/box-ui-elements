@@ -21,7 +21,7 @@ import Pagination from '../../features/pagination';
 import SubHeader from '../common/sub-header/SubHeader';
 import makeResponsive from '../common/makeResponsive';
 import openUrlInsideIframe from '../../utils/iframe';
-import Internatcoionalize from '../common/Internationalize';
+import Internationalize from '../common/Internationalize';
 import API from '../../api';
 import MetadataQueryAPIHelper from '../../features/metadata-based-view/MetadataQueryAPIHelper';
 import Footer from './Footer';
@@ -1740,7 +1740,7 @@ class ContentExplorer extends Component<Props, State> {
                                     isSmall={isSmall}
                                     searchQuery={searchQuery}
                                     logoUrl={logoUrl}
-                                    isHeaderLogoVisible={logoUrl}
+                                    isHeaderLogoVisible={!!logoUrl}
                                     isDownloadAllVisible={isDownloadAllVisible}
                                     onDownloadAll={this.onDownloadAll}
                                     onSearch={this.search}

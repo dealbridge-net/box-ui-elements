@@ -1,16 +1,25 @@
 .btn.be-btn-add {
-    padding: 8.5px 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 13px;
-    text-transform: capitalize;
-    background: #013c4d;
-    color: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.23);
+    padding: 0;
+
+    .btn-content {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        padding: 8.5px 15px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: capitalize;
+        background: #013c4d;
+        border: 1px solid rgba(0, 0, 0, .23);
+    }
 
     svg {
         display: block;
+    }
+
+    .icon-caret-down {
+        margin-left: 10px;
     }
 }
