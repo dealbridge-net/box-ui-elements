@@ -3,8 +3,9 @@
 .be .be-header {
     display: flex;
     flex: 0 0 70px;
+    gap: 8px;
     align-items: center;
-    padding: 0 25px 0 0;
+    padding: 0;
     background: $almost-white;
     border-bottom: 1px solid $bdl-gray-10;
 
@@ -13,13 +14,46 @@
     }
 
     .be-search {
+        position: relative;
         flex: 1;
-        padding-left: 20px;
+        padding-left: 0;
     }
 
     input[type='search'] {
         width: 100%;
+        padding-left: 32px;
         font: inherit;
         -webkit-appearance: none;
+    }
+
+    .icon-search {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 10px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .download-all {
+        margin: 0;
+        padding: 9px 15px;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        .btn-content {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &:hover {
+            fill: #fff;
+        }
+    }
+
+    .btn.be-btn-add {
+        margin: 0;
     }
 }

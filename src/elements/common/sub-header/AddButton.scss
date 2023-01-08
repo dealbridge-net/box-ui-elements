@@ -1,8 +1,25 @@
 .btn.be-btn-add {
-    margin-left: 7px;
-    padding: 5px 6px;
+    padding: 0;
+
+    .btn-content {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        padding: 8.5px 15px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: capitalize;
+        background: #013c4d;
+        border: 1px solid rgba(0, 0, 0, .23);
+    }
 
     svg {
         display: block;
+    }
+
+    .icon-caret-down {
+        margin-left: 10px;
     }
 }

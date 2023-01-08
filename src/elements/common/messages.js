@@ -142,6 +142,11 @@ const messages = defineMessages({
         description: 'Label for upload action.',
         defaultMessage: 'Upload',
     },
+    uploadFile: {
+        id: 'be.uploadFile',
+        description: 'Label for upload action.',
+        defaultMessage: 'Upload File',
+    },
     add: {
         id: 'be.add',
         description: 'Label for add action',
@@ -176,6 +181,11 @@ const messages = defineMessages({
         id: 'be.newFolder',
         description: 'Label for create new folder action.',
         defaultMessage: 'New Folder',
+    },
+    creaetNewFolder: {
+        id: 'be.creaetNewFolder',
+        description: 'Label for create new folder action.',
+        defaultMessage: 'Create New Folder',
     },
     in: {
         id: 'be.in',
@@ -361,6 +371,11 @@ const messages = defineMessages({
         id: 'be.searchPlaceholder',
         description: 'Shown as a placeholder in the search box.',
         defaultMessage: 'Search files and folders',
+    },
+    searchPlaceholderShort: {
+        id: 'be.searchPlaceholderShort',
+        description: 'Shown as a placeholder in the search box.',
+        defaultMessage: 'Search',
     },
     sidebarAccessStats: {
         id: 'be.sidebarAccessStats',

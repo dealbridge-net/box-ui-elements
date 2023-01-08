@@ -6,7 +6,6 @@
 
 import React from 'react';
 import Sort from './Sort';
-import Add from './Add';
 import GridViewSlider from '../../../components/grid-view/GridViewSlider';
 import ViewModeChangeButton from './ViewModeChangeButton';
 import { VIEW_FOLDER, VIEW_MODE_GRID } from '../../../constants';
@@ -32,17 +31,13 @@ type Props = {
 };
 
 const SubHeaderRight = ({
-    canCreateNewFolder,
-    canUpload,
     currentCollection,
     gridColumnCount,
     gridMaxColumns,
     gridMinColumns,
     maxGridColumnCountForWidth,
-    onCreate,
     onGridViewSliderChange,
     onSortChange,
-    onUpload,
     onViewModeChange,
     view,
     viewMode,
@@ -52,7 +47,6 @@ const SubHeaderRight = ({
     const hasItems: boolean = items.length > 0;
     const isFolder: boolean = view === VIEW_FOLDER;
     const showSort: boolean = isFolder && hasItems;
-    const showAdd: boolean = (!!canUpload || !!canCreateNewFolder) && isFolder;
     return (
         <div className="be-sub-header-right">
             {hasItems && viewMode === VIEW_MODE_GRID && (
@@ -69,15 +63,6 @@ const SubHeaderRight = ({
             )}
             {showSort && !!sortBy && !!sortDirection && (
                 <Sort onSortChange={onSortChange} sortBy={sortBy} sortDirection={sortDirection} />
-            )}
-            {showAdd && (
-                <Add
-                    isDisabled={!isFolder}
-                    onCreate={onCreate}
-                    onUpload={onUpload}
-                    showCreate={canCreateNewFolder}
-                    showUpload={canUpload}
-                />
             )}
         </div>
     );
