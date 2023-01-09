@@ -16,7 +16,6 @@ import uniqueid from 'lodash/uniqueId';
 import CreateFolderDialog from '../common/create-folder-dialog';
 import UploadDialog from '../common/upload-dialog';
 import Header from '../common/header';
-import Disclaimer from '../common/discalimer';
 import Pagination from '../../features/pagination';
 import SubHeader from '../common/sub-header/SubHeader';
 import makeResponsive from '../common/makeResponsive';
@@ -1734,7 +1733,6 @@ class ContentExplorer extends Component<Props, State> {
                     <div className="be-app-element" onKeyDown={this.onKeyDown} tabIndex={0}>
                         {!isDefaultViewMetadata && (
                             <>
-                                <Disclaimer />
                                 <Header
                                     view={view}
                                     isSmall={isSmall}
