@@ -19,6 +19,8 @@ import {
     ERROR_CODE_ITEM_NAME_IN_USE,
 } from '../../../constants';
 
+import './CreateFolderDialog.scss';
+
 type Props = {
     appElement: HTMLElement,
     errorCode: string,
@@ -99,7 +101,7 @@ const CreateFolderDialog = ({
             parentSelector={() => parentElement}
             portalClassName={CLASS_MODAL}
         >
-            <label>
+            <label className="create-folder-label">
                 {error ? (
                     <div className="be-modal-error">
                         <FormattedMessage {...error} />
