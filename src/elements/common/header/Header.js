@@ -5,16 +5,14 @@
  */
 
 import React from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import Logo from './Logo';
 import messages from '../messages';
 import { VIEW_FOLDER, VIEW_RECENTS, VIEW_SEARCH } from '../../../constants';
 import type { View } from '../../../common/types/core';
 
 import './Header.scss';
-import Button from '../../../components/button';
 import Add from '../sub-header/Add';
-import IconDownload from '../../../icons/general/IconDownload';
 import IconSearch from '../../../icons/general/IconSearch';
 
 type Props = {
@@ -44,8 +42,6 @@ const Header = ({
     onSearch,
     logoUrl,
     intl,
-    isDownloadAllVisible,
-    onDownloadAll,
     onCreate,
     onUpload,
 }: Props) => {
@@ -71,12 +67,6 @@ const Header = ({
                     value={searchQuery}
                 />
             </div>
-            {isDownloadAllVisible && (
-                <Button onClick={onDownloadAll} type="button" className="outlined-button download-all">
-                    <IconDownload color="#013c4d" />
-                    <FormattedMessage {...messages.downloadAll} />
-                </Button>
-            )}
             {showAdd && (
                 <Add
                     isDisabled={!isFolder}
