@@ -12,6 +12,9 @@ import { VIEW_FOLDER, VIEW_MODE_GRID } from '../../../constants';
 import type { ViewMode } from '../flowTypes';
 import type { View, Collection } from '../../../common/types/core';
 import './SubHeaderRight.scss';
+import Button from '../../../components/button';
+import Tooltip from '../Tooltip';
+import IconDownloadSolid from '../../../icons/general/IconDownloadSolid';
 
 type Props = {
     canCreateNewFolder: boolean,
@@ -20,8 +23,10 @@ type Props = {
     gridColumnCount: number,
     gridMaxColumns: number,
     gridMinColumns: number,
+    isDownloadAllVisible: boolean,
     maxGridColumnCountForWidth: number,
     onCreate: Function,
+    onDownloadAll: Function,
     onGridViewSliderChange: (newSliderValue: number) => void,
     onSortChange: Function,
     onUpload: Function,
@@ -41,6 +46,8 @@ const SubHeaderRight = ({
     onViewModeChange,
     view,
     viewMode,
+    isDownloadAllVisible,
+    onDownloadAll,
 }: Props) => {
     const { sortBy, sortDirection, items = [] }: Collection = currentCollection;
     const hasGridView: boolean = !!gridColumnCount;
@@ -49,6 +56,18 @@ const SubHeaderRight = ({
     const showSort: boolean = isFolder && hasItems;
     return (
         <div className="be-sub-header-right">
+            {isDownloadAllVisible && (
+                <Tooltip text="Download all">
+                    <Button
+                        aria-label="Download All"
+                        onClick={onDownloadAll}
+                        type="button"
+                        className="btn bdl-ViewModeChangeButton"
+                    >
+                        <IconDownloadSolid width={17} height={17} fillColor="#909090" color="#909090" />
+                    </Button>
+                </Tooltip>
+            )}
             {hasItems && viewMode === VIEW_MODE_GRID && (
                 <GridViewSlider
                     columnCount={gridColumnCount}

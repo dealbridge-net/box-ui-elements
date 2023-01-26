@@ -21,9 +21,11 @@ type Props = {
     gridColumnCount?: number,
     gridMaxColumns?: number,
     gridMinColumns?: number,
+    isDownloadAllVisible: boolean,
     isSmall: boolean,
     maxGridColumnCountForWidth?: number,
     onCreate: Function,
+    onDownloadAll: Function,
     onGridViewSliderChange?: (newSliderValue: number) => void,
     onItemClick: Function,
     onSortChange: Function,
@@ -31,6 +33,7 @@ type Props = {
     onViewModeChange?: (viewMode: ViewMode) => void,
     rootId: string,
     rootName?: string,
+
     view: View,
     viewMode?: ViewMode,
 };
@@ -54,6 +57,8 @@ const SubHeader = ({
     rootName,
     view,
     viewMode = VIEW_MODE_LIST,
+    isDownloadAllVisible,
+    onDownloadAll,
 }: Props) => (
     <div className="be-sub-header" data-testid="be-sub-header">
         <SubHeaderLeft
@@ -79,6 +84,8 @@ const SubHeader = ({
             onViewModeChange={onViewModeChange}
             view={view}
             viewMode={viewMode}
+            isDownloadAllVisible={isDownloadAllVisible}
+            onDownloadAll={onDownloadAll}
         />
     </div>
 );
