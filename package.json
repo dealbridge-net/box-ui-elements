@@ -10,7 +10,7 @@
     "jsnext:main": "es/index.js",
     "types": "es/types.d.ts",
     "publishConfig": {
-        "registry": "https://pkgs.dev.azure.com/FinitiveLLC/Finitive/_packaging/npmjs/npm/registry/"
+        "registry": "https://pkgs.dev.azure.com/dealbridge/DealBridge/_packaging/npmjs/npm/registry/"
     },
     "keywords": [
         "box",
